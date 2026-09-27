@@ -18,8 +18,8 @@ export default function QuizTable({ records, delay = 0 }: QuizTableProps) {
         </p>
       ) : (
         <>
-          {/* desktop table */}
-          <div className="hidden overflow-hidden rounded-2xl sm:block">
+          {/* desktop table — 8 columns is too dense before lg (1024px); tablets get the card view instead */}
+          <div className="hidden overflow-hidden rounded-2xl lg:block">
             <table className="w-full table-fixed border-collapse text-left text-[13px]">
               <colgroup>
                 <col className="w-[20%]" />
@@ -92,8 +92,8 @@ export default function QuizTable({ records, delay = 0 }: QuizTableProps) {
             </table>
           </div>
 
-          {/* mobile stacked cards */}
-          <div className="divide-y divide-ov/[0.07] sm:hidden">
+          {/* mobile / tablet stacked cards — shown up to lg */}
+          <div className="divide-y divide-ov/[0.07] lg:hidden">
             {records.map((quiz, i) => {
               const attemptsExhausted =
                 quiz.status === "Failed" && quiz.attemptsUsed >= quiz.attemptsAllowed;

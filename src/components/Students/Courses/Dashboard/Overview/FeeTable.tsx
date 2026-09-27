@@ -90,8 +90,8 @@ export default function FeeTable({ delay = 0 }: FeeTableProps) {
               </p>
             ) : (
               <>
-                {/* desktop table */}
-                <div className="hidden overflow-x-hidden sm:block">
+                {/* desktop table — 6 columns incl. voucher ID, deferred to lg for tablet breathing room */}
+                <div className="hidden overflow-x-hidden lg:block">
                   <table className="w-full table-fixed border-collapse text-left text-[13px]">
                     <colgroup>
                       <col className="w-[16%]" />
@@ -136,8 +136,8 @@ export default function FeeTable({ delay = 0 }: FeeTableProps) {
                   </table>
                 </div>
 
-                {/* mobile stacked cards */}
-                <div className="divide-y divide-ov/[0.07] sm:hidden">
+                {/* mobile / tablet stacked cards — shown up to lg */}
+                <div className="divide-y divide-ov/[0.07] lg:hidden">
                   {history.map((row) => (
                     <div key={row.voucherId} className="p-4">
                       <div className="mb-2 flex items-center justify-between">

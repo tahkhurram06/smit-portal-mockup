@@ -67,8 +67,8 @@ export default function QuizTable({ records, delay = 0, footer }: QuizTableProps
         </p>
       ) : (
         <>
-          {/* desktop table */}
-          <div className="hidden overflow-hidden sm:block">
+          {/* desktop table — 6 columns incl. a multi-course list, deferred to lg for tablet breathing room */}
+          <div className="hidden overflow-hidden lg:block">
             <table className="w-full table-fixed border-collapse text-left text-[13px]">
               <colgroup>
                 <col className="w-[20%]" />
@@ -113,8 +113,8 @@ export default function QuizTable({ records, delay = 0, footer }: QuizTableProps
             </table>
           </div>
 
-          {/* mobile stacked cards */}
-          <div className="divide-y divide-ov/[0.07] sm:hidden">
+          {/* mobile / tablet stacked cards — shown up to lg */}
+          <div className="divide-y divide-ov/[0.07] lg:hidden">
             {records.map((q, i) => (
               <div
                 key={`${q.title}-${q.date}`}

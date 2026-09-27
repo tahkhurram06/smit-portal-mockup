@@ -67,8 +67,8 @@ export default function AssignmentTable({ records, delay = 0, footer }: Assignme
         </p>
       ) : (
         <>
-          {/* desktop table */}
-          <div className="hidden overflow-hidden sm:block">
+          {/* desktop table — 5 columns incl. a long description column, deferred to lg for tablet breathing room */}
+          <div className="hidden overflow-hidden lg:block">
             <table className="w-full table-fixed border-collapse text-left text-[13px]">
               <colgroup>
                 <col className="w-[24%]" />
@@ -108,8 +108,8 @@ export default function AssignmentTable({ records, delay = 0, footer }: Assignme
             </table>
           </div>
 
-          {/* mobile stacked cards */}
-          <div className="divide-y divide-ov/[0.07] sm:hidden">
+          {/* mobile / tablet stacked cards — shown up to lg */}
+          <div className="divide-y divide-ov/[0.07] lg:hidden">
             {records.map((a, i) => (
               <div
                 key={a.title}

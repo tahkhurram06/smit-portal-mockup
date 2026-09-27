@@ -31,9 +31,10 @@ export default function CurrentVoucherCard({ voucher, delay = 0 }: CurrentVouche
       {/* sheen sweep on hover */}
       <div className="pointer-events-none absolute left-[-60%] top-0 h-full w-2/5 -skew-x-[18deg] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-safe:group-hover:animate-[sweep_1.4s_ease-in-out]" />
 
-      <div className="relative flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8 xl:flex-col xl:items-stretch xl:gap-0">
+      {/* row layout deferred from md to lg — a fixed 320px column at 768px left too little room for the main content */}
+      <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8 xl:flex-col xl:items-stretch xl:gap-0">
         <div className="min-w-0">
-          <div className="mb-3.5 flex items-center justify-between gap-3 md:justify-start xl:justify-between">
+          <div className="mb-3.5 flex items-center justify-between gap-3 lg:justify-start xl:justify-between">
             <span className="text-[12.5px] font-medium text-muted">Current voucher</span>
             <StatusBadge status={voucher.status} />
           </div>
@@ -52,7 +53,7 @@ export default function CurrentVoucherCard({ voucher, delay = 0 }: CurrentVouche
           </p>
         </div>
 
-        <div className="md:w-[320px] md:shrink-0 xl:mt-5 xl:w-full">
+        <div className="lg:w-[320px] lg:shrink-0 xl:mt-5 xl:w-full">
           <div className="flex items-center justify-between gap-2 rounded-[11px] border border-ov/[0.13] bg-ov/[0.045] px-3 py-2.5 transition-colors duration-200 hover:border-ov/[0.22]">
             <div className="min-w-0">
               <span className="mb-0.5 block text-[10.5px] font-medium uppercase tracking-wide text-dim">

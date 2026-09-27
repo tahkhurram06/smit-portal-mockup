@@ -20,8 +20,8 @@ export default function PaymentTable({ records, delay = 0, footer }: PaymentTabl
         </p>
       ) : (
         <>
-          {/* desktop table */}
-          <div className="hidden overflow-hidden sm:block">
+          {/* desktop table — 6 columns incl. a voucher ID + copy button, deferred to lg for breathing room on tablets */}
+          <div className="hidden overflow-hidden lg:block">
             <table className="w-full table-fixed border-collapse text-left text-[13px]">
               <colgroup>
                 <col className="w-[14%]" />
@@ -69,8 +69,8 @@ export default function PaymentTable({ records, delay = 0, footer }: PaymentTabl
             </table>
           </div>
 
-          {/* mobile stacked cards */}
-          <div className="divide-y divide-ov/[0.07] sm:hidden">
+          {/* mobile / tablet stacked cards — shown up to lg */}
+          <div className="divide-y divide-ov/[0.07] lg:hidden">
             {records.map((row, i) => (
               <div
                 key={row.voucherId}
