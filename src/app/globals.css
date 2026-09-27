@@ -1,26 +1,276 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ───────────────────────── Theme tokens ─────────────────────────
+   Dark is the original look. Light switches on with data-theme="light" on <html>
+   (applied before first paint by the script in layout.tsx, toggled by useTheme).
+   Components use the semantic classes below (bg-page, text-muted, border-ov/[0.1], …)
+   instead of hard-coded hex values, so a colour is changed here once.
+
+   ov      overlay colour: white in dark, ink in light. bg-ov/[0.04] = "faint tint".
+   card    card surface: faint white in dark, solid white + shadow in light.
+   *text*  accent colours are darker in light so they stay readable on white;
+           fills, borders and gradients keep the bright brand colours. */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page: #06060b;
+  --panel: #0f0f17;
+  --sidebar: rgba(255, 255, 255, 0.035);
+  --card: rgba(255, 255, 255, 0.04);
+  --card-hi: rgba(255, 255, 255, 0.05);
+  --card-hover: rgba(255, 255, 255, 0.06);
+  --glass: rgba(255, 255, 255, 0.05);
+  --scrim: rgba(6, 6, 11, 0.7);
+  --ov: #ffffff;
+
+  --strong: #ffffff;
+  --fg: #f3f2f9;
+  --fg-soft: #d8d7e6;
+  --muted: #9c9bb2;
+  --dim: #66657c;
+
+  --teal: #3fe6d6;
+  --teal-hi: #7cfff0;
+  --purple: #8b6bff;
+  --purple-soft: #c9bdff;
+  --amber: #ffc65a;
+  --red: #ff6b6b;
+  --pink: #ff57a8;
+  --focus: #ffffff;
+
+  --sh-card: 0 0 #0000;
+  --sh-pop: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
+  --sh-login: 0 50px 100px -30px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 0 40px rgba(139, 107, 255, 0.04);
+  --sh-sheet: 0 -30px 80px -30px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 40px rgba(139, 107, 255, 0.05);
+  --sh-dialog: 0 50px 100px -30px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 40px rgba(139, 107, 255, 0.05);
+
+  --aurora-opacity: 0.6;
+  --grain: rgba(255, 255, 255, 0.6);
+  --vignette: rgba(0, 0, 0, 0.55);
 }
 
+[data-theme="light"] {
+  color-scheme: light;
+
+  --page: #f5f4fa;
+  --panel: #ffffff;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --card-hi: #ffffff;
+  --card-hover: #fcfbff;
+  --glass: rgba(255, 255, 255, 0.72);
+  --scrim: rgba(20, 20, 42, 0.38);
+  --ov: #14142a;
+
+  --strong: #14141f;
+  --fg: #14141f;
+  --fg-soft: #3a3950;
+  --muted: #5e5d75;
+  --dim: #6a6980;
+
+  --teal: #087a70;
+  --teal-hi: #066259;
+  --purple: #6d4de8;
+  --purple-soft: #5b3fd0;
+  --amber: #955806;
+  --red: #c43333;
+  --pink: #c7307f;
+  --focus: #6d4de8;
+
+  --sh-card: 0 1px 2px rgba(20, 20, 42, 0.05), 0 14px 30px -20px rgba(60, 40, 140, 0.28);
+  --sh-pop: 0 22px 50px -14px rgba(20, 20, 42, 0.3);
+  --sh-login: 0 40px 90px -30px rgba(60, 40, 140, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 40px rgba(139, 107, 255, 0.04);
+  --sh-sheet: 0 -30px 80px -30px rgba(20, 20, 42, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 40px rgba(139, 107, 255, 0.05);
+  --sh-dialog: 0 50px 100px -30px rgba(20, 20, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 40px rgba(139, 107, 255, 0.05);
+
+  --aurora-opacity: 0.5;
+  --grain: rgba(20, 20, 42, 0.6);
+  --vignette: rgba(120, 100, 190, 0.1);
+}
+
+/* Exposes the tokens as Tailwind utilities: bg-page, text-muted, border-ov/[0.1], shadow-card … */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--page);
+  --color-panel: var(--panel);
+  --color-sidebar: var(--sidebar);
+  --color-card: var(--card);
+  --color-card-hi: var(--card-hi);
+  --color-card-hover: var(--card-hover);
+  --color-glass: var(--glass);
+  --color-scrim: var(--scrim);
+  --color-ov: var(--ov);
+
+  --color-strong: var(--strong);
+  --color-fg: var(--fg);
+  --color-fg-soft: var(--fg-soft);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+
+  --color-teal: var(--teal);
+  --color-teal-hi: var(--teal-hi);
+  --color-purple: var(--purple);
+  --color-purple-soft: var(--purple-soft);
+  --color-amber: var(--amber);
+  --color-red: var(--red);
+  --color-pink: var(--pink);
+  --color-focus: var(--focus);
+
+  --shadow-card: var(--sh-card);
+  --shadow-pop: var(--sh-pop);
+  --shadow-login: var(--sh-login);
+  --shadow-sheet: var(--sh-sheet);
+  --shadow-dialog: var(--sh-dialog);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --font-fraunces: var(--font-fraunces), serif;
+  --font-sora: var(--font-sora), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  background-color: var(--page);
+  color: var(--fg);
+}
+
+@layer utilities {
+  .font-fraunces {
+    font-family: var(--font-fraunces), serif;
+  }
+  .font-sora {
+    font-family: var(--font-sora), sans-serif;
+  }
+}
+
+@keyframes drift1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, 8%) scale(1.08);
+  }
+}
+@keyframes drift2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-8%, -6%) scale(1.1);
+  }
+}
+@keyframes drift3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(5%, -8%) scale(0.95);
+  }
+}
+
+@keyframes sweep {
+  0%,
+  8% {
+    left: -60%;
+  }
+  45%,
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes barShimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 220% center;
+  }
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translate(-6px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+@keyframes sheetUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+@keyframes drawCheck {
+  from { stroke-dashoffset: 24; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
