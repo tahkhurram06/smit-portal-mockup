@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import Sidebar from "./SideBar/Sidebar";
 import Topbar from "./Topbar";
+import StudentBottomNav from "./StudentBottomNav";
 
 interface DashboardLayoutProps {
   activeHref: string;
@@ -38,7 +39,8 @@ export default function DashboardLayout({
         onCloseMobile={() => setMobileOpen(false)}
       />
 
-      <main className="relative z-[2] min-w-0 flex-1 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+      {/* bottom padding leaves room for the fixed bottom nav below lg */}
+      <main className="relative z-[2] min-w-0 flex-1 px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] pt-5 sm:px-6 sm:pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:pt-6 lg:px-8 lg:pb-8 lg:pt-8">
         <Topbar
           activeHref={activeHref}
           courseTitle={courseTitle}
@@ -46,6 +48,8 @@ export default function DashboardLayout({
         />
         {children}
       </main>
+
+      <StudentBottomNav activeHref={activeHref} />
     </div>
   );
 }

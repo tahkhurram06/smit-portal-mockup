@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { NavItem } from "@/lib/dashboardData";
 import SidebarTooltip from "./SidebarTooltip";
 
-const icons: Record<NavItem["icon"], React.ReactNode> = {
+export const icons: Record<NavItem["icon"], React.ReactNode> = {
   dashboard: (
     <>
       <rect x="4" y="4" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="2" />

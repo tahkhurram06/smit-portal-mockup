@@ -88,7 +88,7 @@ export default function AssignmentTable({ records, delay = 0, footer }: Assignme
               <tbody>
                 {records.map((a, i) => (
                   <tr
-                    key={a.title}
+                    key={`${a.title}-${a.dueDate}`}
                     className="border-t border-ov/[0.07] transition-colors duration-200 hover:bg-ov/[0.035] motion-safe:animate-[fadeUp_0.35s_ease_both]"
                     style={{ animationDelay: `${i * 0.04}s` }}
                   >
@@ -113,7 +113,7 @@ export default function AssignmentTable({ records, delay = 0, footer }: Assignme
           <div className="divide-y divide-ov/[0.07] sm:hidden">
             {records.map((a, i) => (
               <div
-                key={a.title}
+              key={`${a.title}-${a.dueDate}`}
                 className="p-4 transition-colors duration-200 hover:bg-ov/[0.035] motion-safe:animate-[fadeUp_0.35s_ease_both]"
                 style={{ animationDelay: `${i * 0.04}s` }}
               >

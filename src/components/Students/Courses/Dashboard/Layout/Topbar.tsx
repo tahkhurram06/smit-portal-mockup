@@ -22,7 +22,6 @@ export default function Topbar({ activeHref, courseTitle, onOpenMobileMenu }: To
 
   const currentPage = navItems.find((item) => item.href === activeHref);
   const isOverview = !currentPage || activeHref === "/dashboard";
-  // The profile belongs to the student, not the course, so it skips the course crumb.
   const isProfile = activeHref === "/dashboard/profile";
 
   const courseCrumbs: Crumb[] = isOverview
@@ -69,6 +68,8 @@ export default function Topbar({ activeHref, courseTitle, onOpenMobileMenu }: To
           {crumbs.map((crumb, i) => {
             const isLast = i === crumbs.length - 1;
             const isFirst = i === 0;
+            // middle crumbs (not first, not last) — hide on mobile to save space
+            const isMiddle = !isFirst && !isLast;
 
             return (
               <span key={`${crumb.label}-${i}`} className="flex min-w-0 items-center">
@@ -76,8 +77,7 @@ export default function Topbar({ activeHref, courseTitle, onOpenMobileMenu }: To
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`mx-1.5 h-3 w-3 shrink-0 ${isFirst ? "" : "hidden sm:inline"}`}
-                    style={{ display: isFirst ? undefined : "inline" }}
+                    className={`mx-1.5 h-3 w-3 shrink-0 ${isMiddle ? "hidden sm:inline" : ""}`}
                   >
                     <path
                       d="m9 6 6 6-6 6"
@@ -90,19 +90,15 @@ export default function Topbar({ activeHref, courseTitle, onOpenMobileMenu }: To
                 )}
 
                 {isLast ? (
-                  <span
-                    className={`truncate font-semibold text-fg ${
-                      isFirst ? "" : "min-w-0"
-                    }`}
-                  >
+                  <span className="min-w-0 max-w-[130px] truncate font-semibold text-fg sm:max-w-none">
                     {crumb.label}
                   </span>
                 ) : (
                   <button
                     type="button"
                     onClick={() => crumb.href && router.push(crumb.href)}
-                    className={`shrink-0 cursor-pointer truncate rounded-[4px] text-muted outline-none transition-colors duration-200 hover:text-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 ${
-                      isFirst ? "hidden sm:inline" : "min-w-0"
+                    className={`cursor-pointer truncate rounded-[4px] text-muted outline-none transition-colors duration-200 hover:text-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 ${
+                      isFirst ? "hidden sm:inline shrink-0" : "hidden sm:inline min-w-0"
                     }`}
                   >
                     {crumb.label}
@@ -132,7 +128,6 @@ export default function Topbar({ activeHref, courseTitle, onOpenMobileMenu }: To
         <span className="hidden sm:inline">Feedback</span>
       </button>
 
-      {/* renders into document.body, so it doesn't affect this bar's layout */}
       <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </div>
   );

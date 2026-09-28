@@ -68,7 +68,7 @@ export default function UpcomingPanel({ delay = 0 }: UpcomingPanelProps) {
         ) : (
           items.map((item, i) => (
             <div
-              key={item.title}
+             key={`${item.title}-${i}`}
               className="group flex items-start justify-between gap-3 rounded-[12px] border border-ov/[0.07] bg-ov/[0.02] p-3 transition-all duration-200 motion-safe:animate-[fadeUp_0.35s_ease_both] hover:border-ov/[0.15] hover:bg-ov/[0.05]"
               style={{ animationDelay: `${0.05 + i * 0.05}s` }}
             >
