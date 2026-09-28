@@ -6,6 +6,7 @@ import RoleSwitcher from "./RoleSwitcher";
 import AuthForm from "./AuthForm";
 import CreatePasswordForm from "./CreatePasswordForm";
 import SSOButtons from "./SSOButtons";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 type View = "login" | "create-password";
 
@@ -16,11 +17,18 @@ export default function LoginCard() {
 
   return (
     <div className="relative z-[2] w-full max-w-[400px] animate-[cardIn_0.7s_cubic-bezier(0.16,1,0.3,1)_0.05s_forwards] overflow-hidden rounded-3xl border border-ov/[0.13] bg-glass px-6 pb-8 pt-8 opacity-0 shadow-login backdrop-blur-2xl backdrop-saturate-150 sm:px-[34px] sm:pb-[32px] sm:pt-10">
+      {/* theme toggle — anchored to the card itself so it can never overlap
+          the card edge on narrow viewports the way a page-relative absolute
+          toggle could */}
+      <div className="absolute right-4 top-4 z-[3] sm:right-5 sm:top-5">
+        <ThemeToggle />
+      </div>
+
       {/* sheen sweep */}
       <div className="pointer-events-none absolute left-[-60%] top-0 h-full w-2/5 -skew-x-[18deg] bg-gradient-to-r from-transparent via-white/[0.09] to-transparent motion-safe:animate-[sweep_7s_ease-in-out_0.8s_infinite]" />
 
       {/* brand */}
-      <div className="mb-6 flex animate-[fadeUp_0.6s_ease_0.2s_both] items-center gap-2.5">
+      <div className="mb-6 flex animate-[fadeUp_0.6s_ease_0.2s_both] items-center gap-2.5 pr-10">
         <div className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#3FE6D6] to-[#8B6BFF] shadow-[0_4px_14px_-3px_rgba(139,107,255,0.5)]">
           <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5">
             <path
